@@ -6,6 +6,7 @@ import com.dummy.springframework.manage.beans.PropertyValues;
 import com.dummy.springframework.manage.beans.factory.config.BeanDefinition;
 import com.dummy.springframework.manage.beans.factory.config.BeanReference;
 import com.dummy.springframework.manage.beans.factory.support.DefaultListableBeanFactory;
+import com.dummy.springframework.manage.beans.factory.xml.XmlBeanDefinitionReader;
 import com.dummy.springframework.manage.core.io.DefaultResourceLoader;
 import com.dummy.springframework.manage.core.io.Resource;
 import com.dummy.springframework.manage.test.UserDao;
@@ -77,5 +78,15 @@ class ApiTest {
 		InputStream inputStream = resource.getInputStream();
 		String content = IoUtil.readUtf8(inputStream);
 		System.out.println(content);
+	}
+
+	@Test
+	public void test_xml() throws IOException{
+		//初始化beanFactory
+		DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+		//读取配置文件 注册bean
+		XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
+		xmlBeanDefinitionReader.loadBeanDefinitions("classpath:spring.xml");
+		//获取bean 实例对象 todo  带完成
 	}
 }
